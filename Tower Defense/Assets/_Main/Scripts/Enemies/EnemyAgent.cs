@@ -30,8 +30,8 @@ namespace TowerDefense.Enemies
 
             var waypointPosition = currentWaypoint.position;
             var step = Time.fixedDeltaTime * speed;
-            var newPosiiton = Vector3.MoveTowards(rigidbody.position, waypointPosition, step);
-            rigidbody.MovePosition(newPosiiton);
+            var newPosition = Vector3.MoveTowards(rigidbody.position, waypointPosition, step);
+            rigidbody.MovePosition(newPosition);
 
             if (Vector3.Distance(rigidbody.position, waypointPosition) < DistanceToRetarget)
                 GetNextWaypoint();

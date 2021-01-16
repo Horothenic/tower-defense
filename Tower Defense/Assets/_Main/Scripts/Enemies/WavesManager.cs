@@ -21,6 +21,12 @@ namespace TowerDefense.Enemies
 
         #endregion
 
+        #region PROPERTIES
+
+        public int Wave => wave;
+
+        #endregion
+
         #region BEHAVIORS
 
         private void Start()

@@ -38,6 +38,11 @@ namespace Utilities.Zenject
             return Instantiate<T>(prefab, Vector3.zero, Quaternion.identity, parent, context);
         }
 
+        public static T Instantiate<T>(T prefab, Vector3 position, Quaternion rotation) where T : UnityEngine.Object
+        {
+            return Instantiate<T>(prefab, position, rotation, null, null);
+        }
+
         public static T Instantiate<T>(T prefab, Vector3 position, Quaternion rotation, Transform parent, Context context = null) where T : UnityEngine.Object
         {
             var newObject = context != null ? context.Container.InstantiatePrefab(prefab, position, rotation, parent) : Container.InstantiatePrefab(prefab, position, rotation, parent);

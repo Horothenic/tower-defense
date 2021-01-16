@@ -1,6 +1,7 @@
 ﻿using UnityEngine;
 
 using Zenject;
+using Utilities.Events;
 
 namespace TowerDefense.Enemies
 {
@@ -15,6 +16,12 @@ namespace TowerDefense.Enemies
 
         #endregion
 
+        #region EVENTS
+
+        [HideInInspector] public UnityGameObjectEvent onDestroy = null;
+
+        #endregion
+
         #region BEHAVIORS
 
         private void OnTriggerEnter(Collider other)
@@ -22,12 +29,13 @@ namespace TowerDefense.Enemies
             if (!other.gameObject.CompareTag(destructionTag))
                 return;
 
-            wavesManager.EnemyDestroyed();
             DestroyEnemy();
         }
 
-        private void DestroyEnemy()
+        public void DestroyEnemy()
         {
+            wavesManager.EnemyDestroyed();
+            onDestroy?.Invoke(gameObject);
             Destroy(gameObject);
         }
 
