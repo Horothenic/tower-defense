@@ -13,7 +13,6 @@ namespace TowerDefense.Enemies
         [SerializeField] private new Rigidbody rigidbody = null;
 
         [Header("CONFIGURATIONS")]
-        [SerializeField] private Transform path = null;
         [SerializeField] private float speed = 1;
 
         private List<Transform> waypoints = new List<Transform>();
@@ -23,11 +22,6 @@ namespace TowerDefense.Enemies
         #endregion
 
         #region BEHAVIORS
-
-        private void Awake()
-        {
-            LoadWaypoints(path);
-        }
 
         private void FixedUpdate()
         {
