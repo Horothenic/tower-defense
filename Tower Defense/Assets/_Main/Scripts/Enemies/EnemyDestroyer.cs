@@ -18,7 +18,8 @@ namespace TowerDefense.Enemies
 
         #region EVENTS
 
-        [HideInInspector] public UnityGameObjectEvent onDestroy = null;
+        [Header("EVENTS")]
+        public UnityGameObjectEvent onDestroy = null;
 
         #endregion
 
