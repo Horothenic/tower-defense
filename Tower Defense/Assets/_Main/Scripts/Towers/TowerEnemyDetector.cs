@@ -15,6 +15,7 @@ namespace TowerDefense.Towers
         [Header("CONFIGURATIONS")]
         [SerializeField] private RetargetType retargetType = default(RetargetType);
         [SerializeField] private string enemyTag = "Enemy";
+        [SerializeField] private Transform tower = null;
         [SerializeField] private Transform rotationMaster = null;
         [SerializeField] private float rotationSpeed = 1;
         [SerializeField] private float lockedOnThreshold = 15f;
@@ -44,12 +45,12 @@ namespace TowerDefense.Towers
                 return;
 
             rotationMaster.LookAt(currentTarget.transform, Vector3.up);
-            transform.rotation = Quaternion.Lerp(transform.rotation, rotationMaster.rotation, rotationSpeed * Time.deltaTime);
+            tower.rotation = Quaternion.Lerp(tower.rotation, rotationMaster.rotation, rotationSpeed * Time.deltaTime);
 
             if (LockedOn)
                 return;
 
-            LockedOn = Quaternion.Angle(transform.rotation, rotationMaster.rotation) < lockedOnThreshold;
+            LockedOn = Quaternion.Angle(tower.rotation, rotationMaster.rotation) < lockedOnThreshold;
         }
 
         private void OnTriggerEnter(Collider other)
