@@ -1,8 +1,7 @@
 ﻿using UnityEngine;
 
 using Zenject;
-
-using Utilities.Zenject;
+using DG.Tweening;
 using Utilities.Inspector;
 
 namespace TowerDefense.Towers
@@ -26,9 +25,15 @@ namespace TowerDefense.Towers
         [ReadOnly] [SerializeField] private float realDamage = 0;
         [ReadOnly] [SerializeField] private int level = 1;
 
+        [Header("TWEENING")]
+        [SerializeField] private float preShootSizeFactor = 1.2f;
+        [SerializeField] private float preShootSizeDuration = 0.2f;
+
         private TowerEnemyDetector towerEnemyDetector = null;
         private GameObject currentTarget = null;
         private float currentTime = float.MaxValue;
+        private Sequence tweenSequence = null;
+        private bool shooting = false;
 
         #endregion
 
@@ -47,8 +52,16 @@ namespace TowerDefense.Towers
             CalculateDamage();
         }
 
+        private void OnDestroy()
+        {
+            tweenSequence?.Kill();
+        }
+
         private void Update()
         {
+            if (shooting)
+                return;
+
             if (currentTime < shootDelay)
                 currentTime += Time.deltaTime;
 
@@ -66,12 +79,28 @@ namespace TowerDefense.Towers
 
         private void Shoot()
         {
+            shooting = true;
+            ShootTween();
+        }
+
+        private void ShootTween()
+        {
+            tweenSequence = DOTween.Sequence();
+            var originalScale = transform.localScale;
+            tweenSequence.Append(transform.DOScale(originalScale * preShootSizeFactor, preShootSizeDuration));
+            tweenSequence.AppendCallback(OnShootTweenEnd);
+            tweenSequence.Append(transform.DOScale(originalScale, preShootSizeDuration));
+        }
+
+        private void OnShootTweenEnd()
+        {
             currentTime = 0;
             var laser = laserPool.Spawn(laserPrefab, laserOrigin.position, laserOrigin.rotation);
             laser.SetTarget(currentTarget);
 
             var laserDamager = laser.GetComponent<LaserDamager>();
             laserDamager.SetDamage(realDamage);
+            shooting = false;
         }
 
         private void CalculateDamage()

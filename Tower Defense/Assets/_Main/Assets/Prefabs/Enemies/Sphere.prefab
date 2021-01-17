@@ -141,6 +141,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   destructionTag: Base
+  explosionParticles: {fileID: 2433282508537954060, guid: 47cff4e25f8be48b9be54efb8c58a0cb,
+    type: 3}
   onDestroy:
     m_PersistentCalls:
       m_Calls: []

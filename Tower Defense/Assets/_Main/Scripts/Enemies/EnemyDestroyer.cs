@@ -3,6 +3,8 @@
 using Zenject;
 using Utilities.Events;
 
+using TowerDefense.Particles;
+
 namespace TowerDefense.Enemies
 {
     public class EnemyDestroyer : MonoBehaviour
@@ -10,9 +12,13 @@ namespace TowerDefense.Enemies
         #region FIELDS
 
         [Inject] private WavesManager wavesManager = null;
+        [Inject] private ParticlesPool particlesPool = null;
 
         [Header("CONFIGURATIONS")]
         [SerializeField] private string destructionTag = null;
+
+        [Header("PARTICLES")]
+        [SerializeField] private GameObject explosionParticles = null;
 
         #endregion
 
@@ -35,6 +41,7 @@ namespace TowerDefense.Enemies
 
         public void DestroyEnemy()
         {
+            particlesPool.Spawn(explosionParticles, transform.position, Quaternion.identity);
             wavesManager.EnemyDestroyed();
             onDestroy?.Invoke(gameObject);
             gameObject.SetActive(false);
