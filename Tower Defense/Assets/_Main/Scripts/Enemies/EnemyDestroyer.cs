@@ -37,7 +37,7 @@ namespace TowerDefense.Enemies
         {
             wavesManager.EnemyDestroyed();
             onDestroy?.Invoke(gameObject);
-            Destroy(gameObject);
+            gameObject.SetActive(false);
         }
 
         #endregion

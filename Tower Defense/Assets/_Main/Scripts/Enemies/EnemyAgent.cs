@@ -23,6 +23,11 @@ namespace TowerDefense.Enemies
 
         #region BEHAVIORS
 
+        private void OnEnable()
+        {
+            currentWaypointIndex = 0;
+        }
+
         private void FixedUpdate()
         {
             if (currentWaypoint == null)

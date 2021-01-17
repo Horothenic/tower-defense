@@ -28,7 +28,7 @@ namespace TowerDefense.Enemies
 
         #region BEHAVIORS
 
-        private void Awake()
+        private void OnEnable()
         {
             LoadHealth(wavesManager.Wave);
         }
