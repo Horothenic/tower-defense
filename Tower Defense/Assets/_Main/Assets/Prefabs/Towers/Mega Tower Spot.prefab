@@ -90,8 +90,6 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 8325362783881260121}
-  - component: {fileID: 31940718756042590}
-  - component: {fileID: 3473474818907868745}
   - component: {fileID: 8325362783881260120}
   - component: {fileID: 2465383650117688992}
   m_Layer: 0
@@ -117,41 +115,6 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &31940718756042590
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8325362783881260122}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 08eca9f7688a0a24685b89133b020c8e, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _scriptableObjectInstallers: []
-  _monoInstallers: []
-  _installerPrefabs: []
-  _autoRun: 1
-  _kernel: {fileID: 0}
---- !u!114 &3473474818907868745
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8325362783881260122}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 0166d8ff8d905b048b2448179e1f5d11, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _components:
-  - {fileID: 0}
-  _identifier: 
-  _useSceneContext: 0
-  _context: {fileID: 31940718756042590}
-  _bindType: 0
 --- !u!65 &8325362783881260120
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -186,6 +149,18 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 8325362783881260121}
     m_Modifications:
+    - target: {fileID: 926744738, guid: 61f8ad121b32a4116ae66448f5f74aff, type: 3}
+      propertyPath: m_LocalScale.y
+      value: 34.688107
+      objectReference: {fileID: 0}
+    - target: {fileID: 926744738, guid: 61f8ad121b32a4116ae66448f5f74aff, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 926744738, guid: 61f8ad121b32a4116ae66448f5f74aff, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 32.619
+      objectReference: {fileID: 0}
     - target: {fileID: 1029780412606118661, guid: 61f8ad121b32a4116ae66448f5f74aff,
         type: 3}
       propertyPath: megaLaser

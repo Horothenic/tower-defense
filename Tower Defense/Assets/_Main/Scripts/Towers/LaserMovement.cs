@@ -51,7 +51,7 @@ namespace TowerDefense.Towers
 
         private void DestroyLaser()
         {
-            Destroy(gameObject);
+            gameObject.SetActive(false);
         }
 
         #endregion
