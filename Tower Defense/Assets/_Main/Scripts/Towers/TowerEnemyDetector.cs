@@ -34,6 +34,7 @@ namespace TowerDefense.Towers
         #region PROPERTIES
 
         public bool LockedOn { get; private set; } = false;
+        public bool HasEnemies { get => enemiesDetected.Count > 0; }
 
         #endregion
 

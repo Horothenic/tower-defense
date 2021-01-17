@@ -16,16 +16,32 @@ namespace TowerDefense.Towers
         [SerializeField] private float damage = 10;
         [SerializeField] private float cooldown = 10;
 
+        private TowerEnemyDetector towerEnemyDetector = null;
         private bool shotEnable = false;
+        private Coroutine shotCoroutine = null;
 
         #endregion
 
         #region BEHAVIORS
 
+        private void Awake()
+        {
+            towerEnemyDetector = GetComponent<TowerEnemyDetector>();
+        }
+
         private void Start()
         {
             megaLaser.SetDamage(damage);
             Invoke(nameof(EnableShot), cooldown);
+        }
+
+        private void Update()
+        {
+            if (shotCoroutine == null || towerEnemyDetector.HasEnemies)
+                return;
+
+            StopCoroutine(shotCoroutine);
+            Stop();
         }
 
         public void Shoot()
@@ -34,7 +50,7 @@ namespace TowerDefense.Towers
                 return;
 
             shotEnable = false;
-            StartCoroutine(ShootCoroutine());
+            shotCoroutine = StartCoroutine(ShootCoroutine());
         }
 
         private IEnumerator ShootCoroutine()
@@ -52,6 +68,11 @@ namespace TowerDefense.Towers
                 yield return null;
             }
 
+            Stop();
+        }
+
+        private void Stop()
+        {
             megaLaser.gameObject.SetActive(false);
             Invoke(nameof(EnableShot), cooldown);
         }
