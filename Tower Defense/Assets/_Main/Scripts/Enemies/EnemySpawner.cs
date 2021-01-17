@@ -1,8 +1,6 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-using Utilities.Zenject;
-
 namespace TowerDefense.Enemies
 {
     public class EnemySpawner : MonoBehaviour
@@ -10,6 +8,7 @@ namespace TowerDefense.Enemies
         #region FIELDS
 
         [Header("COMPONENTS")]
+        [SerializeField] private EnemyPool enemyPool = null;
         [SerializeField] private Transform path = null;
 
         [Header("CONFIGURATIONS")]
@@ -36,7 +35,7 @@ namespace TowerDefense.Enemies
 
         private void SpawnEnemy(Transform path)
         {
-            var enemy = ZenjectUtilities.Instantiate(enemyPrefab, path.position, Quaternion.identity, path);
+            var enemy = enemyPool.Spawn(enemyPrefab, path.position, Quaternion.identity, transform.parent);
             enemy.LoadWaypoints(path);
         }
 

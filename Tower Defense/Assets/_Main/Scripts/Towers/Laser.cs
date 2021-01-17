@@ -25,7 +25,7 @@ namespace TowerDefense.Towers
 
         private void FixedUpdate()
         {
-            if (target == null)
+            if (target == null || !target.activeSelf)
             {
                 DestroyLaser();
                 return;
