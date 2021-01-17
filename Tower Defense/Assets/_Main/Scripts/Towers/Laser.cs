@@ -26,7 +26,10 @@ namespace TowerDefense.Towers
         private void FixedUpdate()
         {
             if (target == null)
+            {
+                DestroyLaser();
                 return;
+            }
 
             Move();
             Rotate();
