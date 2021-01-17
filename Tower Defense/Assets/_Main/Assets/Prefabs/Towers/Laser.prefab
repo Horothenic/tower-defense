@@ -9,8 +9,9 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 8997693974212895254}
-  - component: {fileID: 4706677847105916348}
   - component: {fileID: 3791477710032467025}
+  - component: {fileID: 4706677847105916348}
+  - component: {fileID: 1021927949049988030}
   m_Layer: 0
   m_Name: Laser
   m_TagString: Untagged
@@ -34,23 +35,6 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &4706677847105916348
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 57011079423165466}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: c0769a1fa94db442398f230db68d528f, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  rotationMaster: {fileID: 7649654652859147980}
-  enemyTag: Enemy
-  speed: 10
-  damage: 1
-  rotationSpeed: 5
 --- !u!136 &3791477710032467025
 CapsuleCollider:
   m_ObjectHideFlags: 0
@@ -65,6 +49,35 @@ CapsuleCollider:
   m_Height: 2.1690624
   m_Direction: 2
   m_Center: {x: 0, y: 0, z: 0}
+--- !u!114 &4706677847105916348
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 57011079423165466}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4f487d5c69c0d4d6fa90ecb31a76b47b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  rotationMaster: {fileID: 7649654652859147980}
+  speed: 10
+  rotationSpeed: 5
+--- !u!114 &1021927949049988030
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 57011079423165466}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 85e72415e9ef64339a17f6e770719e6f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  enemyTag: Enemy
+  destroyOnContact: 1
 --- !u!1 &1546399553877444482
 GameObject:
   m_ObjectHideFlags: 0
@@ -123,7 +136,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: 31321ba15b8f8eb4c954353edc038b1d, type: 2}
+  - {fileID: 2100000, guid: 36b93ed3a33b04a4da3a1327c07ab569, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0

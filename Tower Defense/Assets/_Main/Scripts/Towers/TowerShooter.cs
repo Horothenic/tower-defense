@@ -12,7 +12,7 @@ namespace TowerDefense.Towers
 
         [Header("CONFIGURATIONS")]
         [SerializeField] private Transform laserOrigin = null;
-        [SerializeField] private Laser laserPrefab = null;
+        [SerializeField] private LaserMovement laserPrefab = null;
         [SerializeField] private float shootDelay = 1;
         [SerializeField] private float damage = 1;
         [SerializeField] private float damageIncrementPerLevel = 1;
@@ -65,7 +65,9 @@ namespace TowerDefense.Towers
             currentTime = 0;
             var laser = ZenjectUtilities.Instantiate(laserPrefab, laserOrigin.position, laserOrigin.rotation);
             laser.SetTarget(currentTarget);
-            laser.SetDamage(realDamage);
+
+            var laserDamager = laser.GetComponent<LaserDamager>();
+            laserDamager.SetDamage(realDamage);
         }
 
         private void CalculateDamage()
