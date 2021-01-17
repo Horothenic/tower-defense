@@ -1,6 +1,6 @@
 ﻿using UnityEngine;
 
-using Utilities.Zenject;
+using Zenject;
 
 namespace TowerDefense.Towers
 {
@@ -8,13 +8,18 @@ namespace TowerDefense.Towers
     {
         #region FIELDS
 
+        [Inject] private TowerSpotsManager towerSpotsManager = null;
+
         [Header("COMPONENTS")]
         [SerializeField] private GameObject gizmo = null;
+        [SerializeField] private TowerCreationMenu creationMenu = null;
+        [SerializeField] private TowerUpgradeMenu upgradeMenu = null;
 
-        [Header("CONFIGURATIONS")]
-        [SerializeField] private GameObject towerPrefab = null;
+        #endregion
 
-        private GameObject tower = null;
+        #region PROPERTIES
+
+        public GameObject Tower { get; private set; }
 
         #endregion
 
@@ -22,7 +27,7 @@ namespace TowerDefense.Towers
 
         private void Awake()
         {
-            gizmo.SetActive(false);
+            towerSpotsManager.onTowerSpotSelected.AddListener(DeactivateMenus);
         }
 
         private void OnMouseEnter()
@@ -37,18 +42,26 @@ namespace TowerDefense.Towers
 
         private void OnMouseUpAsButton()
         {
-            if (tower != null)
-            {
-                DestroyTower();
-                return;
-            }
+            towerSpotsManager.OnTowerSpotSelected(this);
 
-            tower = ZenjectUtilities.Instantiate(towerPrefab, transform.position, towerPrefab.transform.rotation, transform);
+            if (Tower == null)
+                creationMenu.Appear();
+            else
+                upgradeMenu.Appear();
         }
 
-        private void DestroyTower()
+        public void SetTower(GameObject newTower)
         {
-            Destroy(tower);
+            Tower = newTower;
+        }
+
+        private void DeactivateMenus(TowerSpot towerSpot)
+        {
+            if (towerSpot == this)
+                return;
+
+            creationMenu.Close();
+            upgradeMenu.Close();
         }
 
         #endregion
