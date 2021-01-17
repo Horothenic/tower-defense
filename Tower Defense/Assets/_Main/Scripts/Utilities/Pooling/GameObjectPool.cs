@@ -10,6 +10,7 @@ namespace Utilities.Pooling
         #region FIELDS
 
         [Header("CONFIGURATIONS")]
+        [SerializeField] private Transform parent = null;
         [SerializeField] private bool useZenject = false;
 
         private Dictionary<T, List<T>> poolDictionary = new Dictionary<T, List<T>>();
@@ -20,15 +21,15 @@ namespace Utilities.Pooling
 
         public T Spawn(T gameObject)
         {
-            return Spawn(gameObject, Vector3.zero, Quaternion.identity, null);
+            return Spawn(gameObject, Vector3.zero, Quaternion.identity);
         }
 
         public T Spawn(T gameObject, Vector3 position)
         {
-            return Spawn(gameObject, position, Quaternion.identity, null);
+            return Spawn(gameObject, position, Quaternion.identity);
         }
 
-        public T Spawn(T gameObject, Vector3 position, Quaternion rotation, Transform parent)
+        public T Spawn(T gameObject, Vector3 position, Quaternion rotation)
         {
             if (!poolDictionary.ContainsKey(gameObject))
                 poolDictionary.Add(gameObject, new List<T>());

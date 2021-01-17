@@ -1,5 +1,7 @@
 ﻿using UnityEngine;
 
+using Zenject;
+
 using Utilities.Zenject;
 using Utilities.Inspector;
 
@@ -9,6 +11,8 @@ namespace TowerDefense.Towers
     public class TowerShooter : MonoBehaviour
     {
         #region FIELDS
+
+        [Inject] private LaserPool laserPool = null;
 
         [Header("CONFIGURATIONS")]
         [SerializeField] private Transform laserOrigin = null;
@@ -63,7 +67,7 @@ namespace TowerDefense.Towers
         private void Shoot()
         {
             currentTime = 0;
-            var laser = ZenjectUtilities.Instantiate(laserPrefab, laserOrigin.position, laserOrigin.rotation);
+            var laser = laserPool.Spawn(laserPrefab, laserOrigin.position, laserOrigin.rotation);
             laser.SetTarget(currentTarget);
 
             var laserDamager = laser.GetComponent<LaserDamager>();
