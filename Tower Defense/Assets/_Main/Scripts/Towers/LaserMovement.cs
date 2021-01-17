@@ -1,10 +1,8 @@
 ﻿using UnityEngine;
 
-using TowerDefense.Enemies;
-
 namespace TowerDefense.Towers
 {
-    public class Laser : MonoBehaviour
+    public class LaserMovement : MonoBehaviour
     {
         #region FIELDS
 
@@ -12,11 +10,9 @@ namespace TowerDefense.Towers
         [SerializeField] private Transform rotationMaster = null;
 
         [Header("CONFIGURATIONS")]
-        [SerializeField] private string enemyTag = "Enemy";
         [SerializeField] private float speed = 10;
         [SerializeField] private float rotationSpeed = 1;
 
-        private float damage = 1;
         private GameObject target = null;
 
         #endregion
@@ -35,23 +31,9 @@ namespace TowerDefense.Towers
             Rotate();
         }
 
-        private void OnTriggerEnter(Collider other)
-        {
-            if (!other.gameObject.CompareTag(enemyTag))
-                return;
-
-            DamageEnemy(other.gameObject.GetComponent<EnemyHealth>());
-            DestroyLaser();
-        }
-
         public void SetTarget(GameObject newTarget)
         {
             target = newTarget;
-        }
-
-        public void SetDamage(float damage)
-        {
-            this.damage = damage;
         }
 
         private void Move()
@@ -65,14 +47,6 @@ namespace TowerDefense.Towers
         {
             rotationMaster.LookAt(target.transform, Vector3.up);
             transform.rotation = Quaternion.Lerp(transform.rotation, rotationMaster.rotation, rotationSpeed * Time.deltaTime);
-        }
-
-        private void DamageEnemy(EnemyHealth enemyHealth)
-        {
-            if (enemyHealth == null)
-                return;
-
-            enemyHealth.DecreaseHealth(damage);
         }
 
         private void DestroyLaser()
