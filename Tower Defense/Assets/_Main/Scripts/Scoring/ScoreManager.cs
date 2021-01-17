@@ -1,6 +1,7 @@
 ﻿using UnityEngine;
 
 using Utilities.Inspector;
+using Utilities.Events;
 
 namespace TowerDefense.Scoring
 {
@@ -13,11 +14,19 @@ namespace TowerDefense.Scoring
 
         #endregion
 
+        #region EVENTS
+
+        [Header("EVENTS")]
+        public UnityIntEvent onScoreUpdated = null;
+
+        #endregion
+
         #region BEHAVIORS
 
         public void IncreaseScore(int score)
         {
             totalScore += score;
+            onScoreUpdated?.Invoke(totalScore);
         }
 
         #endregion
