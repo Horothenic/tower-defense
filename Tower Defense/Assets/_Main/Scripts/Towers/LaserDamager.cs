@@ -1,6 +1,9 @@
 ﻿using UnityEngine;
 
+using Zenject;
+
 using TowerDefense.Enemies;
+using TowerDefense.Particles;
 
 namespace TowerDefense.Towers
 {
@@ -8,9 +11,14 @@ namespace TowerDefense.Towers
     {
         #region FIELDS
 
+        [Inject] private ParticlesPool particlesPool = null;
+
         [Header("CONFIGURATIONS")]
         [SerializeField] private string enemyTag = "Enemy";
         [SerializeField] private bool destroyOnContact = true;
+
+        [Header("PARTICLES")]
+        [SerializeField] private GameObject hitParticles = null;
 
         private float damage = 1;
 
@@ -44,6 +52,7 @@ namespace TowerDefense.Towers
 
         private void DestroyLaser()
         {
+            particlesPool.Spawn(hitParticles, transform.position, Quaternion.identity);
             gameObject.SetActive(false);
         }
 

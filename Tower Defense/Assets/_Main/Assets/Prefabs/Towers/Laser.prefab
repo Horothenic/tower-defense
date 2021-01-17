@@ -78,6 +78,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   enemyTag: Enemy
   destroyOnContact: 1
+  hitParticles: {fileID: 9127653965126434405, guid: b2be47008143c42a0b93da7c2b7fc085,
+    type: 3}
 --- !u!1 &1546399553877444482
 GameObject:
   m_ObjectHideFlags: 0

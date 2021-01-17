@@ -58,6 +58,9 @@ namespace Utilities.Pooling
 
         private GameObject GetGameObject(T obj)
         {
+            if (obj.GetType() == typeof(GameObject))
+                return obj as GameObject;
+
             return (obj as MonoBehaviour).gameObject;
         }
 
