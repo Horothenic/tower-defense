@@ -5,14 +5,26 @@ namespace Utilities.Cameras
 {
     public class CameraShake : MonoBehaviour
     {
+        #region FIELDS
+
+        private const float MediumDuration = 0.4f;
+        private const float MediumMagnitude = 0.3f;
+
+        #endregion
+
         #region BEHAVIORS
 
-        public void RunShake(float duration, float magnitude)
+        public void MediumShake()
         {
-            StartCoroutine(Shake(duration, magnitude));
+            Shake(MediumDuration, MediumMagnitude);
         }
 
-        private IEnumerator Shake(float duration, float magnitude)
+        public void Shake(float duration, float magnitude)
+        {
+            StartCoroutine(ShakeCoroutine(duration, magnitude));
+        }
+
+        private IEnumerator ShakeCoroutine(float duration, float magnitude)
         {
             Vector3 orignalPosition = transform.position;
             float elapsed = 0f;

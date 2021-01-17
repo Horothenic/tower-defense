@@ -201,11 +201,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 13e1a31a1d1c7493faf018f92e2f4f01, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  megaLaser: {fileID: 0}
+  megaLaser: {fileID: 7438723978175839708}
   megaLaserCollider: {fileID: 926744739}
   duration: 5
   interval: 0.5
   damage: 10
+  cooldown: 10
+  preShootSizeFactor: 1.3
+  preShootSizeDuration: 0.3
 --- !u!1 &1852073875832654406
 GameObject:
   m_ObjectHideFlags: 0
