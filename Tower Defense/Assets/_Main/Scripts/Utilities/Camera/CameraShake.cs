@@ -7,12 +7,19 @@ namespace Utilities.Cameras
     {
         #region FIELDS
 
+        private const float SmallDuration = 0.2f;
+        private const float SmallMagnitude = 0.15f;
         private const float MediumDuration = 0.4f;
         private const float MediumMagnitude = 0.3f;
 
         #endregion
 
         #region BEHAVIORS
+
+        public void SmallShake()
+        {
+            Shake(SmallDuration, SmallMagnitude);
+        }
 
         public void MediumShake()
         {
