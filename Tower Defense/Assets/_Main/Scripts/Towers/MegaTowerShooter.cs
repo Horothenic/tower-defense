@@ -1,4 +1,5 @@
 ﻿using UnityEngine;
+using UnityEngine.UI;
 using System.Collections;
 
 using Zenject;
@@ -13,6 +14,9 @@ namespace TowerDefense.Towers
         #region FIELDS
 
         [Inject] private CameraShake cameraShake = null;
+
+        [Header("CONFIGURATIONS")]
+        [SerializeField] private Image cooldownBar = null;
 
         [Header("CONFIGURATIONS")]
         [SerializeField] private LaserDamager megaLaser = null;
@@ -48,7 +52,7 @@ namespace TowerDefense.Towers
         private void Start()
         {
             megaLaser.SetDamage(damage);
-            Invoke(nameof(EnableShot), cooldown);
+            StartCooldown();
         }
 
         private void Update()
@@ -105,12 +109,23 @@ namespace TowerDefense.Towers
         private void Stop()
         {
             megaLaser.gameObject.SetActive(false);
-            Invoke(nameof(EnableShot), cooldown);
+            StartCooldown();
         }
 
         private void EnableShot()
         {
             shotEnable = true;
+        }
+
+        private void StartCooldown()
+        {
+            Invoke(nameof(EnableShot), cooldown);
+            TweenCooldownBar();
+        }
+
+        private void TweenCooldownBar()
+        {
+            DOTween.To(() => cooldownBar.fillAmount, x => cooldownBar.fillAmount = x, 1, cooldown).From(0).SetEase(Ease.Linear);
         }
 
         #endregion

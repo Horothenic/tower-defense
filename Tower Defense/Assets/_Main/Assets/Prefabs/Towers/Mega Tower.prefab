@@ -28,8 +28,8 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 926744737}
   m_LocalRotation: {x: 0.7071068, y: -0, z: -0, w: 0.7071068}
-  m_LocalPosition: {x: 0, y: 0, z: 22.25}
-  m_LocalScale: {x: 2.0175502, y: 24.319489, z: 2.0175502}
+  m_LocalPosition: {x: -0, y: 0, z: 32.619}
+  m_LocalScale: {x: 2.0175502, y: 34.688107, z: 2.0175502}
   m_Children: []
   m_Father: {fileID: 3713487790131675371}
   m_RootOrder: 1
@@ -109,6 +109,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   enemyTag: Enemy
   destroyOnContact: 0
+  hitParticles: {fileID: 0}
 --- !u!1 &1430692427269515109
 GameObject:
   m_ObjectHideFlags: 0
@@ -201,6 +202,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 13e1a31a1d1c7493faf018f92e2f4f01, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  cooldownBar: {fileID: 0}
   megaLaser: {fileID: 7438723978175839708}
   megaLaserCollider: {fileID: 926744739}
   duration: 5
