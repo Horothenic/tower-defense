@@ -1,6 +1,8 @@
 ﻿using UnityEngine;
+using System.Collections;
 
 using Utilities.Inspector;
+using Utilities.Events;
 
 namespace TowerDefense.Enemies
 {
@@ -12,12 +14,19 @@ namespace TowerDefense.Enemies
         [SerializeField] private EnemySpawner[] spawners = null;
 
         [Header("CONFIGURATIONS")]
-        [SerializeField] private int enemiesPerWave = 5;
+        [SerializeField] private WavesSetup wavesSetup = null;
 
         [Header("STATES")]
         [ReadOnly] [SerializeField] private int wave = default(int);
 
         private int currentEnemies = default(int);
+
+        #endregion
+
+        #region EVENTS
+
+        [Header("EVENTS")]
+        public UnityIntEvent onWaveUpdated = null;
 
         #endregion
 
@@ -36,9 +45,25 @@ namespace TowerDefense.Enemies
 
         private void SpawnWave()
         {
+            StartCoroutine(SpawnWaveCoroutine());
+        }
+
+        private IEnumerator SpawnWaveCoroutine()
+        {
             wave++;
-            currentEnemies = enemiesPerWave;
-            GetRandomSpawner().SpawnWave(enemiesPerWave);
+            onWaveUpdated?.Invoke(wave);
+
+            var waveConfiguration = wavesSetup.GetWaveConfiguration(wave);
+
+            currentEnemies = waveConfiguration.NumberOfEnemies * waveConfiguration.NumberOfRounds;
+            var waitBetweenRounds = new WaitForSeconds(waveConfiguration.NumberOfEnemies * waveConfiguration.SpawnDelay);
+
+            for (int i = 0; i < waveConfiguration.NumberOfRounds; i++)
+            {
+                var enemy = waveConfiguration.GetEnemy(i);
+                GetRandomSpawner().SpawnWave(enemy, waveConfiguration.NumberOfEnemies, waveConfiguration.SpawnDelay);
+                yield return waitBetweenRounds;
+            }
         }
 
         private EnemySpawner GetRandomSpawner()

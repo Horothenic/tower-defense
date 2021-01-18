@@ -14,29 +14,25 @@ namespace TowerDefense.Enemies
         [Header("COMPONENTS")]
         [SerializeField] private Transform path = null;
 
-        [Header("CONFIGURATIONS")]
-        [SerializeField] private EnemyAgent enemyPrefab = null;
-        [SerializeField] private float enemySpawnDelay = 0.5f;
-
         #endregion
 
         #region BEHAVIORS
 
-        public void SpawnWave(int enemies)
+        public void SpawnWave(EnemyAgent enemyPrefab, int enemies, float enemySpawnDelay)
         {
-            StartCoroutine(SpawnWaveCoroutine(enemies));
+            StartCoroutine(SpawnWaveCoroutine(enemyPrefab, enemies, enemySpawnDelay));
         }
 
-        private IEnumerator SpawnWaveCoroutine(int enemies)
+        private IEnumerator SpawnWaveCoroutine(EnemyAgent enemyPrefab, int enemies, float enemySpawnDelay)
         {
             for (int i = 0; i < enemies; i++)
             {
                 yield return new WaitForSeconds(enemySpawnDelay);
-                SpawnEnemy(path);
+                SpawnEnemy(enemyPrefab, path);
             }
         }
 
-        private void SpawnEnemy(Transform path)
+        private void SpawnEnemy(EnemyAgent enemyPrefab, Transform path)
         {
             var enemy = enemyPool.Spawn(enemyPrefab, path.position, Quaternion.identity);
             enemy.LoadWaypoints(path);
