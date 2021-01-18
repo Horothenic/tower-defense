@@ -40,6 +40,7 @@ namespace TowerDefense.Towers
         #region PROPERTIES
 
         public bool IsMaxLevel => level >= maxLevel;
+        public int Level => level;
 
         #endregion
 

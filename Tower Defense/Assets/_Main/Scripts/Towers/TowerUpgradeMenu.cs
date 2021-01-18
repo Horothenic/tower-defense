@@ -15,6 +15,10 @@ namespace TowerDefense.Towers
         [SerializeField] private Button upgradeButton = null;
         [SerializeField] private Button destroyButton = null;
         [SerializeField] private Button cancelButton = null;
+        [SerializeField] private Text levelText = null;
+
+        [Header("CONFIGURATIONS")]
+        [SerializeField] private string levelFormat = "Lv: {0}";
 
         private TowerShooter towerShooter = null;
 
@@ -35,6 +39,13 @@ namespace TowerDefense.Towers
 
             if (towerShooter == null)
                 towerShooter = towerSpot.Tower.GetComponent<TowerShooter>();
+
+            UpdateLevelText();
+        }
+
+        private void UpdateLevelText()
+        {
+            levelText.text = string.Format(levelFormat, towerShooter.Level);
         }
 
         private void UpgradeTower()
