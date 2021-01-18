@@ -16,6 +16,8 @@ namespace TowerDefense.Base
         [Header("STATES")]
         [ReadOnly] [SerializeField] private float currentHealth = 0;
 
+        private bool destroyed = false;
+
         #endregion
 
         #region EVENTS
@@ -37,13 +39,19 @@ namespace TowerDefense.Base
             if (!other.gameObject.CompareTag(enemyTag))
                 return;
 
+            if (destroyed)
+                return;
+
             ReceiveHit();
         }
 
         public void ReceiveHit()
         {
             if (--currentHealth <= 0)
+            {
+                destroyed = true;
                 onHealthDepleted?.Invoke();
+            }
         }
 
         #endregion
