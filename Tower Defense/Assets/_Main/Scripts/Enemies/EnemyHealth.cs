@@ -1,10 +1,9 @@
 ﻿using UnityEngine;
+using UnityEngine.UI;
 using UnityEngine.Events;
 
 using Zenject;
 using Utilities.Inspector;
-
-using TowerDefense.UI;
 
 namespace TowerDefense.Enemies
 {
@@ -13,15 +12,17 @@ namespace TowerDefense.Enemies
         #region FIELDS
 
         [Inject] private WavesManager wavesManager = null;
-        [Inject] private DamageDealtPool damageDealtPool = null;
+
+        [Header("COMPONENTS")]
+        [SerializeField] private Image healthBar = null;
 
         [Header("CONFIGURATION")]
         [SerializeField] private float baseHealth = 1;
         [SerializeField] private float extraHealthModifier = 1;
-        [SerializeField] private DamageDealtUI damageDealtPrefab = null;
 
         [Header("STATES")]
         [ReadOnly] [SerializeField] private float realHealth = 1;
+        [ReadOnly] [SerializeField] private float maxHealth = 1;
 
         #endregion
 
@@ -41,16 +42,23 @@ namespace TowerDefense.Enemies
 
         private void LoadHealth(int extraHealth)
         {
-            realHealth = baseHealth + (extraHealth * extraHealthModifier);
+            maxHealth = realHealth = baseHealth + (extraHealth * extraHealthModifier);
+            UpdateHealthBar();
         }
 
         public void DecreaseHealth(float damage)
         {
-            damageDealtPool.Spawn(damageDealtPrefab, transform.position, damageDealtPrefab.transform.rotation).LoadDamageDealt(damage);
             realHealth -= damage;
 
             if (realHealth <= 0)
                 onHealthDepleted?.Invoke();
+
+            UpdateHealthBar();
+        }
+
+        private void UpdateHealthBar()
+        {
+            healthBar.fillAmount = Mathf.InverseLerp(0, maxHealth, realHealth);
         }
 
         #endregion
