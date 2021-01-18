@@ -61,6 +61,7 @@ namespace TowerDefense.Towers
                 return;
 
             StopCoroutine(shotCoroutine);
+            shotCoroutine = null;
             Stop();
         }
 
