@@ -40,6 +40,9 @@ namespace TowerDefense.Enemies
 
         private void Start()
         {
+            if (spawners.Length == 0)
+                return;
+
             SpawnWave();
         }
 
