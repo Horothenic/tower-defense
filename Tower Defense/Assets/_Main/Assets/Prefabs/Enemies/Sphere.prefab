@@ -160,6 +160,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   baseHealth: 0
   extraHealthModifier: 1
+  damageDealtPrefab: {fileID: 7210074580203829540, guid: 3969ec878ab79473b90c6d31982b68af,
+    type: 3}
   realHealth: 1
   onHealthDepleted:
     m_PersistentCalls:

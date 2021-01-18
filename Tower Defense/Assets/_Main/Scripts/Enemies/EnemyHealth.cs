@@ -4,6 +4,8 @@ using UnityEngine.Events;
 using Zenject;
 using Utilities.Inspector;
 
+using TowerDefense.UI;
+
 namespace TowerDefense.Enemies
 {
     public class EnemyHealth : MonoBehaviour
@@ -11,10 +13,14 @@ namespace TowerDefense.Enemies
         #region FIELDS
 
         [Inject] private WavesManager wavesManager = null;
+        [Inject] private DamageDealtPool damageDealtPool = null;
 
         [Header("CONFIGURATION")]
         [SerializeField] private float baseHealth = 1;
         [SerializeField] private float extraHealthModifier = 1;
+        [SerializeField] private DamageDealtUI damageDealtPrefab = null;
+
+        [Header("STATES")]
         [ReadOnly] [SerializeField] private float realHealth = 1;
 
         #endregion
@@ -40,6 +46,7 @@ namespace TowerDefense.Enemies
 
         public void DecreaseHealth(float damage)
         {
+            damageDealtPool.Spawn(damageDealtPrefab, transform.position, damageDealtPrefab.transform.rotation).LoadDamageDealt(damage);
             realHealth -= damage;
 
             if (realHealth <= 0)
