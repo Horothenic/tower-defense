@@ -1,7 +1,10 @@
 ﻿using UnityEngine;
+using UnityEngine.UI;
 using UnityEngine.Events;
 
+using Zenject;
 using Utilities.Inspector;
+using Utilities.Cameras;
 
 namespace TowerDefense.Base
 {
@@ -9,12 +12,18 @@ namespace TowerDefense.Base
     {
         #region FIELDS
 
+        [Inject] private CameraShake cameraShake = null;
+
+        [Header("COMPONENTS")]
+        [SerializeField] private Image healthBar = null;
+
         [Header("CONFIGURATION")]
         [SerializeField] private string enemyTag = "Enemy";
         [SerializeField] private float health = 50;
 
         [Header("STATES")]
         [ReadOnly] [SerializeField] private float currentHealth = 0;
+        [ReadOnly] [SerializeField] private float maxHealth = 1;
 
         private bool destroyed = false;
 
@@ -31,7 +40,8 @@ namespace TowerDefense.Base
 
         private void Awake()
         {
-            currentHealth = health;
+            maxHealth = currentHealth = health;
+            UpdateHealthBar();
         }
 
         private void OnTriggerEnter(Collider other)
@@ -47,11 +57,20 @@ namespace TowerDefense.Base
 
         public void ReceiveHit()
         {
+            cameraShake.SmallShake();
+
             if (--currentHealth <= 0)
             {
                 destroyed = true;
                 onHealthDepleted?.Invoke();
             }
+
+            UpdateHealthBar();
+        }
+
+        private void UpdateHealthBar()
+        {
+            healthBar.fillAmount = Mathf.InverseLerp(0, maxHealth, currentHealth);
         }
 
         #endregion
