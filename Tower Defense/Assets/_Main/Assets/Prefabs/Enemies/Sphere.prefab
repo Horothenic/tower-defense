@@ -336,6 +336,8 @@ MonoBehaviour:
   healthBar: {fileID: 2313337327342769358}
   baseHealth: 0
   extraHealthModifier: 1
+  damageDealtPrefab: {fileID: 7210074580203829540, guid: 3969ec878ab79473b90c6d31982b68af,
+    type: 3}
   realHealth: 1
   maxHealth: 1
   onHealthDepleted:
